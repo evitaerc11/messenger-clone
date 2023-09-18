@@ -9,6 +9,7 @@ import Avatar from '@/app/components/Avatar'
 import { IoClose, IoTrash } from 'react-icons/io5'
 import Modal from '@/app/components/Modal'
 import ConfirmModal from './ConfirmModal'
+import AvatarGroup from '@/app/components/sidebar/AvatarGroup'
 
 interface ProfileDrawerProps {
   isOpen: boolean
@@ -88,11 +89,11 @@ const ProfileDrawer = ({ isOpen, onClose, data }: ProfileDrawerProps) => {
                       <div className='relative mt-6 flex-1 px-4 sm:px-6'>
                         <div className='flex flex-col items-center'>
                           <div className='mb-2'>
-                            {/* {data.isGroup ? (
+                            {data.isGroup ? (
                             <AvatarGroup users={data.users} />
-                          ) : ( */}
+                          ) : (
                             <Avatar user={otherUser} />
-                            {/* )} */}
+                            )}
                           </div>
                           <div>{title}</div>
                           <div className='text-sm text-gray-500'>
