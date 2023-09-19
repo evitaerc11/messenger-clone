@@ -1,6 +1,6 @@
 'use client'
 
-import { useOtherUser } from '@/app/hooks/useOtherUser'
+import useOtherUser from '@/app/hooks/useOtherUser'
 import { FullConversationType } from '@/app/types'
 import clsx from 'clsx'
 import { useSession } from 'next-auth/react'

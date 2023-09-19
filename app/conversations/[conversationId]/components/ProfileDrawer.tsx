@@ -1,6 +1,6 @@
 'use client'
 
-import { useOtherUser } from '@/app/hooks/useOtherUser'
+import useOtherUser from '@/app/hooks/useOtherUser'
 import { Conversation, User } from '@prisma/client'
 import React, { Fragment, useMemo, useState } from 'react'
 import { format } from 'date-fns'
@@ -10,6 +10,7 @@ import { IoClose, IoTrash } from 'react-icons/io5'
 import Modal from '@/app/components/Modal'
 import ConfirmModal from './ConfirmModal'
 import AvatarGroup from '@/app/components/sidebar/AvatarGroup'
+import useActiveList from '@/app/hooks/useActiveList'
 
 interface ProfileDrawerProps {
   isOpen: boolean
@@ -21,7 +22,10 @@ interface ProfileDrawerProps {
 
 const ProfileDrawer = ({ isOpen, onClose, data }: ProfileDrawerProps) => {
   const otherUser = useOtherUser(data)
-  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false)
+
+  const { members } = useActiveList()
+  const isActive = members.indexOf(otherUser?.email!) !== -1
 
   const joinedDate = useMemo(() => {
     return format(new Date(otherUser.createdAt), 'PP')
@@ -40,8 +44,8 @@ const ProfileDrawer = ({ isOpen, onClose, data }: ProfileDrawerProps) => {
 
   return (
     <>
-      <ConfirmModal 
-        isOpen={confirmOpen} 
+      <ConfirmModal
+        isOpen={confirmOpen}
         onClose={() => setConfirmOpen(false)}
       />
       <Transition.Root show={isOpen} as={Fragment}>
@@ -90,9 +94,9 @@ const ProfileDrawer = ({ isOpen, onClose, data }: ProfileDrawerProps) => {
                         <div className='flex flex-col items-center'>
                           <div className='mb-2'>
                             {data.isGroup ? (
-                            <AvatarGroup users={data.users} />
-                          ) : (
-                            <Avatar user={otherUser} />
+                              <AvatarGroup users={data.users} />
+                            ) : (
+                              <Avatar user={otherUser} />
                             )}
                           </div>
                           <div>{title}</div>
@@ -118,22 +122,22 @@ const ProfileDrawer = ({ isOpen, onClose, data }: ProfileDrawerProps) => {
                                 <div>
                                   <dt
                                     className='
-                                  text-sm 
-                                  font-medium 
-                                  text-gray-500 
-                                  sm:w-40 
-                                  sm:flex-shrink-0
-                                '
+                                text-sm 
+                                font-medium 
+                                text-gray-500 
+                                sm:w-40 
+                                sm:flex-shrink-0
+                              '
                                   >
                                     Emails
                                   </dt>
                                   <dd
                                     className='
-                                  mt-1 
-                                  text-sm 
-                                  text-gray-900 
-                                  sm:col-span-2
-                                '
+                                mt-1 
+                                text-sm 
+                                text-gray-900 
+                                sm:col-span-2
+                              '
                                   >
                                     {data.users
                                       .map((user) => user.email)
@@ -145,22 +149,22 @@ const ProfileDrawer = ({ isOpen, onClose, data }: ProfileDrawerProps) => {
                                 <div>
                                   <dt
                                     className='
-                                  text-sm 
-                                  font-medium 
-                                  text-gray-500 
-                                  sm:w-40 
-                                  sm:flex-shrink-0
-                                '
+                                text-sm 
+                                font-medium 
+                                text-gray-500 
+                                sm:w-40 
+                                sm:flex-shrink-0
+                              '
                                   >
                                     Email
                                   </dt>
                                   <dd
                                     className='
-                                  mt-1 
-                                  text-sm 
-                                  text-gray-900 
-                                  sm:col-span-2
-                                '
+                                mt-1 
+                                text-sm 
+                                text-gray-900 
+                                sm:col-span-2
+                              '
                                   >
                                     {otherUser.email}
                                   </dd>
@@ -172,22 +176,22 @@ const ProfileDrawer = ({ isOpen, onClose, data }: ProfileDrawerProps) => {
                                   <div>
                                     <dt
                                       className='
-                                    text-sm 
-                                    font-medium 
-                                    text-gray-500 
-                                    sm:w-40 
-                                    sm:flex-shrink-0
-                                  '
+                                  text-sm 
+                                  font-medium 
+                                  text-gray-500 
+                                  sm:w-40 
+                                  sm:flex-shrink-0
+                                '
                                     >
                                       Joined
                                     </dt>
                                     <dd
                                       className='
-                                    mt-1 
-                                    text-sm 
-                                    text-gray-900 
-                                    sm:col-span-2
-                                  '
+                                  mt-1 
+                                  text-sm 
+                                  text-gray-900 
+                                  sm:col-span-2
+                                '
                                     >
                                       <time dateTime={joinedDate}>
                                         {joinedDate}
