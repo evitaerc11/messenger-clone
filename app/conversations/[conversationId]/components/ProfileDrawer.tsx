@@ -39,7 +39,7 @@ const ProfileDrawer = ({ isOpen, onClose, data }: ProfileDrawerProps) => {
     if (data.isGroup) {
       return `${data.users.length} members`
     }
-    return 'Active'
+    return isActive ? 'Active' : 'Offline'
   }, [data])
 
   return (
